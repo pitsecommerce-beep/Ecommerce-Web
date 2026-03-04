@@ -3,426 +3,434 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Refaccionaria Pits - Autopartes de Colision</title>
+    <title>Refaccionaria Pits &mdash; Autopartes de Colisi&oacute;n</title>
+    <meta name="description" content="M&aacute;s de 25,000 autopartes gen&eacute;ricas de colisi&oacute;n. Entrega el mismo d&iacute;a en toda CDMX. Busca por SKU, marca, modelo o pieza.">
     <link rel="icon" type="image/png" href="logo con fondo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-<!-- ========== NAVBAR ========== -->
-<nav class="navbar" id="navbar">
-    <div class="navbar-container">
-        <a href="#" class="nav-logo" onclick="showPublicSite()">
-            <img src="logo sin fondo pits.png" alt="Pits Logo">
-            <span>PITS</span>
-        </a>
-        <ul class="nav-links">
-            <li><a href="#catalogo" class="nav-link-public">Catalogo</a></li>
-            <li><a href="#vacantes" class="nav-link-public">Vacantes</a></li>
-            <li><a href="#ubicacion" class="nav-link-public">Ubicacion</a></li>
-            <li>
-                <button class="nav-cart-btn" onclick="toggleCart()">
-                    &#128722; Carrito <span class="cart-count" id="cartCount">0</span>
-                </button>
-            </li>
-            <li>
-                <button class="nav-admin-btn" onclick="openAuthModal()" title="Admin">
-                    &#9881;
-                </button>
-            </li>
-        </ul>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">&#9776;</button>
-    </div>
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand" onclick="showPublicSite()">
+      <img src="logo sin fondo pits.png" alt="Pits">
+      <span>PITS</span>
+    </a>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#catalogo" class="pub-link">Cat&aacute;logo</a></li>
+      <li><a href="#vacantes" class="pub-link">Vacantes</a></li>
+      <li><a href="#ubicacion" class="pub-link">Ubicaci&oacute;n</a></li>
+      <li>
+        <button class="nav-cta" onclick="toggleCart()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          Carrito
+          <span class="badge" id="cartCount">0</span>
+        </button>
+      </li>
+      <li>
+        <button class="nav-admin" onclick="openAuthModal()" title="Administrador">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+      </li>
+    </ul>
+    <button class="nav-toggle" onclick="toggleMobile()" aria-label="Menu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+    </button>
+  </div>
 </nav>
 
-<!-- Mobile Menu -->
-<div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
-<div class="mobile-menu" id="mobileMenu">
-    <button class="mobile-menu-close" onclick="toggleMobileMenu()">&#10005;</button>
-    <a href="#catalogo" onclick="toggleMobileMenu()" class="nav-link-public">Catalogo</a>
-    <a href="#vacantes" onclick="toggleMobileMenu()" class="nav-link-public">Vacantes</a>
-    <a href="#ubicacion" onclick="toggleMobileMenu()" class="nav-link-public">Ubicacion</a>
-    <a href="#" onclick="toggleCart(); toggleMobileMenu();">&#128722; Carrito (<span id="cartCountMobile">0</span>)</a>
-    <a href="#" onclick="openAuthModal(); toggleMobileMenu();">&#9881; Administrador</a>
+<!-- Mobile -->
+<div class="mob-overlay" id="mobBg" onclick="toggleMobile()"></div>
+<div class="mob-drawer" id="mobDrawer">
+  <button class="mob-close" onclick="toggleMobile()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+  <a href="#catalogo" onclick="toggleMobile()" class="pub-link">Cat&aacute;logo</a>
+  <a href="#vacantes" onclick="toggleMobile()" class="pub-link">Vacantes</a>
+  <a href="#ubicacion" onclick="toggleMobile()" class="pub-link">Ubicaci&oacute;n</a>
+  <a href="#" onclick="toggleCart();toggleMobile()">Carrito (<span id="cartCountMob">0</span>)</a>
+  <a href="#" onclick="openAuthModal();toggleMobile()">Administrador</a>
 </div>
 
-<!-- ========== MAIN SITE (PUBLIC) ========== -->
+<!-- ===== PUBLIC SITE ===== -->
 <div id="publicSite">
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <div class="hero-badge">&#9733; Autopartes Genericas de Colision</div>
-                <h1>Encuentra la pieza que necesitas en <span class="hero-gradient">segundos</span></h1>
-                <p>Mas de 25,000 autopartes en catalogo con entrega a toda la CDMX en pedidos antes de las 11:00 AM. Busca por SKU, marca, modelo o tipo de pieza.</p>
-                <div class="hero-buttons">
-                    <a href="#catalogo" class="btn btn-primary">&#128270; Buscar Piezas</a>
-                    <a href="https://wa.me/5215576818593?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20autopartes" target="_blank" class="btn btn-whatsapp">&#128172; WhatsApp</a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="hero-search-preview">
-                    <h3>&#128270; Busqueda rapida</h3>
-                    <input type="text" class="hero-search-input" id="heroSearchInput" placeholder="Escribe SKU, marca, modelo..." onkeydown="if(event.key==='Enter'){heroSearch()}">
-                    <div class="hero-search-filters">
-                        <select id="heroMarcaFilter">
-                            <option value="">Marca</option>
-                        </select>
-                        <select id="heroParteFilter">
-                            <option value="">Tipo de Pieza</option>
-                        </select>
-                    </div>
-                    <button class="hero-search-btn" onclick="heroSearch()">&#128270; Buscar en catalogo</button>
-                </div>
-            </div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-eyebrow">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Autopartes gen&eacute;ricas de colisi&oacute;n
         </div>
-    </section>
+        <h1>Encuentra tu pieza en <em>segundos</em></h1>
+        <p class="hero-sub">M&aacute;s de 25,000 autopartes en cat&aacute;logo. Entrega el mismo d&iacute;a en toda la CDMX para pedidos antes de las 11:00&nbsp;AM.</p>
+        <div class="hero-actions">
+          <a href="#catalogo" class="btn btn-brand">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            Buscar piezas
+          </a>
+          <a href="https://wa.me/5215576818593?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20autopartes" target="_blank" class="btn btn-wa">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          B&uacute;squeda r&aacute;pida
+        </div>
+        <input class="hc-input" id="heroSearchInput" type="text" placeholder="SKU, marca, modelo..." onkeydown="if(event.key==='Enter')heroSearch()">
+        <div class="hc-filters">
+          <select id="heroMarcaFilter"><option value="">Marca</option></select>
+          <select id="heroParteFilter"><option value="">Tipo de pieza</option></select>
+        </div>
+        <button class="btn btn-brand btn-block" onclick="heroSearch()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          Buscar en cat&aacute;logo
+        </button>
+      </div>
+    </div>
+  </section>
 
-    <!-- INFO STRIP -->
-    <section class="info-strip">
-        <div class="info-strip-inner">
-            <div class="info-item">
-                <div class="info-icon">&#128666;</div>
-                <div>
-                    <h4>Entrega mismo dia</h4>
-                    <p>Pedidos antes de las 11 AM en toda CDMX</p>
-                </div>
-            </div>
-            <div class="info-item">
-                <div class="info-icon">&#128230;</div>
-                <div>
-                    <h4>+25,000 productos</h4>
-                    <p>Amplio catalogo de autopartes genericas</p>
-                </div>
-            </div>
-            <div class="info-item">
-                <div class="info-icon">&#128276;</div>
-                <div>
-                    <h4>Atencion por WhatsApp</h4>
-                    <p>Respuesta rapida y asesoramiento</p>
-                </div>
-            </div>
-            <div class="info-item">
-                <div class="info-icon">&#128176;</div>
-                <div>
-                    <h4>Precios competitivos</h4>
-                    <p>Las mejores piezas al mejor precio</p>
-                </div>
-            </div>
+  <!-- INFO BAR -->
+  <section class="info-bar">
+    <div class="info-bar-inner">
+      <div class="ib-item">
+        <div class="ib-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/><path d="m9 15 2 2 4-4"/></svg>
         </div>
-    </section>
+        <div>
+          <h4>Entrega mismo d&iacute;a</h4>
+          <p>Pedidos antes de las 11 AM en CDMX</p>
+        </div>
+      </div>
+      <div class="ib-item">
+        <div class="ib-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+        </div>
+        <div>
+          <h4>+25,000 productos</h4>
+          <p>Cat&aacute;logo de autopartes gen&eacute;ricas</p>
+        </div>
+      </div>
+      <div class="ib-item">
+        <div class="ib-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div>
+          <h4>Atenci&oacute;n por WhatsApp</h4>
+          <p>Respuesta r&aacute;pida y asesor&iacute;a</p>
+        </div>
+      </div>
+      <div class="ib-item">
+        <div class="ib-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        </div>
+        <div>
+          <h4>Precios competitivos</h4>
+          <p>Las mejores piezas al mejor precio</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- CATALOG -->
-    <section class="catalog-section" id="catalogo">
-        <div class="catalog-container">
-            <div class="section-header">
-                <span class="section-label">Catalogo</span>
-                <h2>Busca tu autopart</h2>
-                <p>Encuentra piezas de colision por SKU, marca, modelo o tipo de pieza</p>
-            </div>
-            <div class="search-bar">
-                <div class="search-row">
-                    <div class="search-input-wrap">
-                        <input type="text" id="searchInput" placeholder="Buscar por SKU o descripcion..." onkeydown="if(event.key==='Enter'){searchProducts()}">
-                    </div>
-                    <div class="search-select-wrap">
-                        <select id="marcaFilter">
-                            <option value="">Todas las marcas</option>
-                        </select>
-                    </div>
-                    <div class="search-select-wrap">
-                        <select id="modeloFilter">
-                            <option value="">Todos los modelos</option>
-                        </select>
-                    </div>
-                    <div class="search-select-wrap">
-                        <select id="parteFilter">
-                            <option value="">Tipo de pieza</option>
-                        </select>
-                    </div>
-                    <button class="search-btn" onclick="searchProducts()">&#128270; Buscar</button>
-                </div>
-            </div>
-            <div class="products-grid" id="productsGrid">
-                <div class="products-empty">
-                    <div class="empty-icon">&#128270;</div>
-                    <p>Usa el buscador para encontrar autopartes</p>
-                </div>
-            </div>
-            <div class="pagination" id="pagination"></div>
+  <!-- CATALOG -->
+  <section class="catalog" id="catalogo">
+    <div class="catalog-inner">
+      <div class="sec-head">
+        <span class="sec-label">Cat&aacute;logo</span>
+        <h2 class="sec-title">Busca tu autoparte</h2>
+        <p class="sec-desc">Encuentra piezas de colisi&oacute;n por SKU, marca, modelo o tipo de pieza</p>
+      </div>
+      <div class="search-panel">
+        <div class="search-row">
+          <div class="search-field">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="searchInput" placeholder="Buscar por SKU o descripci&oacute;n..." onkeydown="if(event.key==='Enter')searchProducts()">
+          </div>
+          <div class="search-select">
+            <select id="marcaFilter"><option value="">Todas las marcas</option></select>
+          </div>
+          <div class="search-select">
+            <select id="modeloFilter"><option value="">Todos los modelos</option></select>
+          </div>
+          <div class="search-select">
+            <select id="parteFilter"><option value="">Tipo de pieza</option></select>
+          </div>
+          <button class="btn btn-brand btn-sm" onclick="searchProducts()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            Buscar
+          </button>
         </div>
-    </section>
+      </div>
+      <div id="resultsCount" class="results-count"></div>
+      <div class="pgrid" id="productsGrid">
+        <div class="pgrid-empty">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <p>Usa el buscador para encontrar autopartes en nuestro cat&aacute;logo</p>
+        </div>
+      </div>
+      <div class="pag" id="pagination"></div>
+    </div>
+  </section>
 
-    <!-- VACANTES -->
-    <section class="vacantes-section" id="vacantes">
-        <div class="vacantes-container">
-            <div class="section-header">
-                <span class="section-label">Unete al equipo</span>
-                <h2>Vacantes disponibles</h2>
-                <p>Forma parte de Refaccionaria Pits y crece profesionalmente</p>
-            </div>
-            <div class="vacantes-grid">
-                <div class="vacante-card">
-                    <h3>Ejecutivo de Ventas</h3>
-                    <p>Atencion al cliente, gestion de pedidos y asesoria en autopartes de colision.</p>
-                    <div class="vacante-tags">
-                        <span class="vacante-tag">Tiempo completo</span>
-                        <span class="vacante-tag">Presencial</span>
-                    </div>
-                    <a href="https://wa.me/5215576818593?text=Hola%2C%20me%20interesa%20la%20vacante%20de%20Ejecutivo%20de%20Ventas" target="_blank" class="vacante-apply-btn">Postularme &#10132;</a>
-                </div>
-                <div class="vacante-card">
-                    <h3>Almacenista</h3>
-                    <p>Control de inventario, recepcion de mercancia y organizacion de almacen.</p>
-                    <div class="vacante-tags">
-                        <span class="vacante-tag">Tiempo completo</span>
-                        <span class="vacante-tag">Presencial</span>
-                    </div>
-                    <a href="https://wa.me/5215576818593?text=Hola%2C%20me%20interesa%20la%20vacante%20de%20Almacenista" target="_blank" class="vacante-apply-btn">Postularme &#10132;</a>
-                </div>
-                <div class="vacante-card">
-                    <h3>Repartidor</h3>
-                    <p>Entrega de pedidos en toda la CDMX. Licencia de conducir vigente requerida.</p>
-                    <div class="vacante-tags">
-                        <span class="vacante-tag">Tiempo completo</span>
-                        <span class="vacante-tag">Moto/Auto propio</span>
-                    </div>
-                    <a href="https://wa.me/5215576818593?text=Hola%2C%20me%20interesa%20la%20vacante%20de%20Repartidor" target="_blank" class="vacante-apply-btn">Postularme &#10132;</a>
-                </div>
-            </div>
+  <!-- VACANTES -->
+  <section class="vacantes" id="vacantes">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-label">&Uacute;nete al equipo</span>
+        <h2 class="sec-title">Vacantes disponibles</h2>
+        <p class="sec-desc">Forma parte de Refaccionaria Pits y crece profesionalmente</p>
+      </div>
+      <div class="vac-grid">
+        <div class="vac-card">
+          <h3>Ejecutivo de Ventas</h3>
+          <p>Atenci&oacute;n al cliente, gesti&oacute;n de pedidos y asesor&iacute;a en autopartes de colisi&oacute;n.</p>
+          <div class="vac-tags">
+            <span class="vac-tag">Tiempo completo</span>
+            <span class="vac-tag">Presencial</span>
+          </div>
+          <a href="https://wa.me/5215576818593?text=Hola%2C%20me%20interesa%20la%20vacante%20de%20Ejecutivo%20de%20Ventas" target="_blank" class="btn btn-dark btn-sm">Postularme &rarr;</a>
         </div>
-    </section>
+        <div class="vac-card">
+          <h3>Almacenista</h3>
+          <p>Control de inventario, recepci&oacute;n de mercanc&iacute;a y organizaci&oacute;n de almac&eacute;n.</p>
+          <div class="vac-tags">
+            <span class="vac-tag">Tiempo completo</span>
+            <span class="vac-tag">Presencial</span>
+          </div>
+          <a href="https://wa.me/5215576818593?text=Hola%2C%20me%20interesa%20la%20vacante%20de%20Almacenista" target="_blank" class="btn btn-dark btn-sm">Postularme &rarr;</a>
+        </div>
+        <div class="vac-card">
+          <h3>Repartidor</h3>
+          <p>Entrega de pedidos en toda la CDMX. Licencia de conducir vigente requerida.</p>
+          <div class="vac-tags">
+            <span class="vac-tag">Tiempo completo</span>
+            <span class="vac-tag">Moto/Auto propio</span>
+          </div>
+          <a href="https://wa.me/5215576818593?text=Hola%2C%20me%20interesa%20la%20vacante%20de%20Repartidor" target="_blank" class="btn btn-dark btn-sm">Postularme &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- MAP -->
-    <section class="map-section" id="ubicacion">
-        <div class="map-container">
-            <div class="section-header">
-                <span class="section-label">Visitanos</span>
-                <h2>Nuestra ubicacion</h2>
-                <p>Ven a conocernos y encuentra lo que necesitas</p>
-            </div>
-            <div class="map-content">
-                <div class="map-info">
-                    <h3>Refaccionaria Pits</h3>
-                    <div class="map-info-item">
-                        <span class="icon">&#128205;</span>
-                        <p>Ciudad de Mexico, CDMX</p>
-                    </div>
-                    <div class="map-info-item">
-                        <span class="icon">&#128222;</span>
-                        <p>55 7681 8593</p>
-                    </div>
-                    <div class="map-info-item">
-                        <span class="icon">&#128338;</span>
-                        <p>Lunes a Viernes: 9:00 AM - 6:00 PM<br>Sabado: 9:00 AM - 2:00 PM</p>
-                    </div>
-                    <div class="map-info-item">
-                        <span class="icon">&#128666;</span>
-                        <p>Entregas a toda CDMX en pedidos antes de las 11:00 AM</p>
-                    </div>
-                    <a href="https://wa.me/5215576818593?text=Hola%2C%20quiero%20informaci%C3%B3n" target="_blank" class="btn btn-whatsapp" style="margin-top: 16px;">&#128172; Contactar por WhatsApp</a>
-                </div>
-                <div class="map-embed">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d240863.95700950484!2d-99.42381785!3d19.3910036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ce0026db097507%3A0x54061076265ee841!2sCiudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1709578429011!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-            </div>
+  <!-- MAP -->
+  <section class="ubicacion" id="ubicacion">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-label">Vis&iacute;tanos</span>
+        <h2 class="sec-title">Nuestra ubicaci&oacute;n</h2>
+        <p class="sec-desc">Ven a conocernos y encuentra lo que necesitas</p>
+      </div>
+      <div class="map-grid">
+        <div class="map-data">
+          <h3>Refaccionaria Pits</h3>
+          <div class="map-row">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <p>Ciudad de M&eacute;xico, CDMX</p>
+          </div>
+          <div class="map-row">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <p>55 7681 8593</p>
+          </div>
+          <div class="map-row">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <p>Lunes a Viernes: 9:00 AM &ndash; 6:00 PM<br>S&aacute;bado: 9:00 AM &ndash; 2:00 PM</p>
+          </div>
+          <div class="map-row">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="13" x="6" y="4.5" rx="2"/><path d="m3 7 3-3 3 3"/><path d="M7 4.5V2"/><path d="m21 15-3 3-3-3"/><path d="M18 21.5V17"/></svg>
+            <p>Entregas a toda CDMX en pedidos antes de las 11:00&nbsp;AM</p>
+          </div>
+          <a href="https://wa.me/5215576818593?text=Hola%2C%20quiero%20informaci%C3%B3n" target="_blank" class="btn btn-wa btn-sm" style="margin-top:20px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Contactar por WhatsApp
+          </a>
         </div>
-    </section>
+        <div class="map-frame">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d240863.95700950484!2d-99.42381785!3d19.3910036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ce0026db097507%3A0x54061076265ee841!2sCiudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses-419!2smx!4v1709578429011!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- WHATSAPP CTA -->
-    <section class="whatsapp-cta">
-        <div class="whatsapp-cta-inner">
-            <h2>&#191;No encuentras tu pieza?</h2>
-            <p>Mandanos un mensaje por WhatsApp con los datos de tu vehiculo y te ayudamos a encontrar la autoparte que necesitas.</p>
-            <a href="https://wa.me/5215576818593?text=Hola%2C%20busco%20una%20pieza%20y%20no%20la%20encuentro%20en%20el%20cat%C3%A1logo" target="_blank" class="btn btn-whatsapp">&#128172; Enviar mensaje por WhatsApp</a>
-        </div>
-    </section>
+  <!-- WA CTA -->
+  <section class="wa-cta">
+    <div class="wa-cta-inner">
+      <h2>&iquest;No encuentras tu pieza?</h2>
+      <p>Env&iacute;anos un mensaje por WhatsApp con los datos de tu veh&iacute;culo y te ayudamos a encontrar la autoparte que necesitas.</p>
+      <a href="https://wa.me/5215576818593?text=Hola%2C%20busco%20una%20pieza%20y%20no%20la%20encuentro%20en%20el%20cat%C3%A1logo" target="_blank" class="btn btn-wa">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Enviar mensaje por WhatsApp
+      </a>
+    </div>
+  </section>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-inner">
-            <div class="footer-col">
-                <h4>Refaccionaria Pits</h4>
-                <p>Autopartes genericas de colision para todas las marcas y modelos. Mas de 25,000 productos en catalogo.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Navegacion</h4>
-                <a href="#catalogo">Catalogo</a>
-                <a href="#vacantes">Vacantes</a>
-                <a href="#ubicacion">Ubicacion</a>
-            </div>
-            <div class="footer-col">
-                <h4>Contacto</h4>
-                <a href="https://wa.me/5215576818593" target="_blank">WhatsApp: 55 7681 8593</a>
-                <p>Ciudad de Mexico, CDMX</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Refaccionaria Pits. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <h4>Refaccionaria Pits</h4>
+        <p>Autopartes gen&eacute;ricas de colisi&oacute;n para todas las marcas y modelos. M&aacute;s de 25,000 productos en cat&aacute;logo.</p>
+      </div>
+      <div>
+        <h4>Navegaci&oacute;n</h4>
+        <a href="#catalogo">Cat&aacute;logo</a>
+        <a href="#vacantes">Vacantes</a>
+        <a href="#ubicacion">Ubicaci&oacute;n</a>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <a href="https://wa.me/5215576818593" target="_blank">WhatsApp: 55 7681 8593</a>
+        <p>Ciudad de M&eacute;xico, CDMX</p>
+      </div>
+    </div>
+    <div class="footer-bar">&copy; 2025 Refaccionaria Pits. Todos los derechos reservados.</div>
+  </footer>
+
+</div><!-- /publicSite -->
+
+<!-- ===== ADMIN ===== -->
+<div class="admin" id="adminPanel">
+  <div class="admin-inner">
+    <div class="admin-top">
+      <h2>Panel de Administrador</h2>
+      <div class="admin-top-actions">
+        <button class="btn btn-outline btn-sm" onclick="showPublicSite()">&larr; Volver al sitio</button>
+        <button class="btn btn-dark btn-sm" onclick="downloadTemplate()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+          Descargar plantilla Excel
+        </button>
+        <button class="btn btn-danger btn-sm" onclick="signOut()">Cerrar sesi&oacute;n</button>
+      </div>
+    </div>
+    <div class="admin-stats">
+      <div class="as"><div class="as-num" id="totalProducts">0</div><div class="as-label">Productos</div></div>
+      <div class="as"><div class="as-num" id="totalBrands">0</div><div class="as-label">Marcas</div></div>
+      <div class="as"><div class="as-num" id="totalInStock">0</div><div class="as-label">Con existencia</div></div>
+    </div>
+    <div class="admin-card">
+      <h3>Cargar productos desde Excel</h3>
+      <p class="card-sub">Sube un archivo .xlsx con los datos de tus productos. Descarga la plantilla para ver el formato correcto.</p>
+      <div class="upload-drop" id="uploadZone">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="m9 15 3-3 3 3"/></svg>
+        <p>Arrastra tu archivo Excel aqu&iacute;</p>
+        <small>o haz clic para seleccionar .xlsx</small>
+        <input type="file" id="excelFileInput" accept=".xlsx,.xls" onchange="handleExcelUpload(event)">
+      </div>
+      <div class="upload-msg" id="uploadStatus"></div>
+    </div>
+    <div class="admin-card">
+      <h3>Productos cargados</h3>
+      <div style="overflow-x:auto">
+        <table class="admin-tbl">
+          <thead><tr><th>SKU</th><th>Descripci&oacute;n</th><th>Marca</th><th>Modelo</th><th>Parte</th><th>Precio</th><th>Exist.</th><th></th></tr></thead>
+          <tbody id="adminProductsBody">
+            <tr><td colspan="8" style="text-align:center;padding:40px;color:var(--c-text-3)">No hay productos cargados</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- ========== ADMIN PANEL ========== -->
-<div class="admin-panel" id="adminPanel">
-    <div class="admin-container">
-        <div class="admin-header">
-            <h2>&#9881; Panel de Administrador</h2>
-            <div class="admin-actions">
-                <button class="admin-btn admin-btn-outline" onclick="showPublicSite()">&#8592; Volver al sitio</button>
-                <button class="admin-btn admin-btn-secondary" onclick="downloadTemplate()">&#128196; Descargar Plantilla Excel</button>
-                <button class="admin-btn admin-btn-danger" onclick="signOut()">Cerrar sesion</button>
-            </div>
+<!-- ===== PRODUCT MODAL ===== -->
+<div class="pm-overlay" id="productModal">
+  <div class="pm">
+    <button class="pm-x" onclick="closeProductModal()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <div class="pm-grid">
+      <div class="pm-image" id="modalImg">
+        <div class="noimg"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>
+      </div>
+      <div class="pm-info">
+        <div class="pm-sku" id="modalSku">SKU-000</div>
+        <h2 class="pm-title" id="modalTitle">Producto</h2>
+        <p class="pm-desc" id="modalDesc"></p>
+        <div class="pm-details">
+          <div class="pm-detail"><small>Marca</small><span id="modalMarca">-</span></div>
+          <div class="pm-detail"><small>Modelo</small><span id="modalModelo">-</span></div>
+          <div class="pm-detail"><small>Parte</small><span id="modalParte">-</span></div>
+          <div class="pm-detail"><small>Existencia</small><span id="modalExistencia">-</span></div>
         </div>
-
-        <div class="admin-stats" id="adminStats">
-            <div class="admin-stat">
-                <div class="number" id="totalProducts">0</div>
-                <div class="label">Productos totales</div>
-            </div>
-            <div class="admin-stat">
-                <div class="number" id="totalBrands">0</div>
-                <div class="label">Marcas</div>
-            </div>
-            <div class="admin-stat">
-                <div class="number" id="totalInStock">0</div>
-                <div class="label">Con existencia</div>
-            </div>
+        <div class="pm-price" id="modalPrice">$0.00</div>
+        <div class="pm-stock" id="modalStock">En existencia</div>
+        <div class="pm-qty">
+          <button class="qty-btn" onclick="changeQty(-1)">-</button>
+          <span class="qty-num" id="modalQty">1</span>
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
         </div>
-
-        <div class="admin-card">
-            <h3>&#128228; Cargar productos desde Excel</h3>
-            <p style="color: var(--text-mid); margin-bottom: 16px; font-size: 0.95rem;">Sube un archivo Excel (.xlsx) con los datos de tus productos. Descarga la plantilla para ver el formato correcto.</p>
-            <div class="upload-zone" id="uploadZone">
-                <div class="upload-icon">&#128196;</div>
-                <p><strong>Arrastra tu archivo Excel aqui</strong></p>
-                <p class="upload-hint">o haz clic para seleccionar un archivo .xlsx</p>
-                <input type="file" id="excelFileInput" accept=".xlsx,.xls" onchange="handleExcelUpload(event)">
-            </div>
-            <div class="upload-status" id="uploadStatus"></div>
-        </div>
-
-        <div class="admin-card">
-            <h3>&#128230; Productos cargados</h3>
-            <div style="overflow-x: auto;">
-                <table class="admin-products-table" id="adminProductsTable">
-                    <thead>
-                        <tr>
-                            <th>SKU</th>
-                            <th>Descripcion</th>
-                            <th>Marca</th>
-                            <th>Modelo</th>
-                            <th>Parte</th>
-                            <th>Precio</th>
-                            <th>Existencia</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="adminProductsBody">
-                        <tr><td colspan="8" style="text-align:center; padding: 40px; color: var(--text-light);">No hay productos cargados</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <button class="btn btn-brand btn-block" onclick="addToCart()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+          Agregar al carrito
+        </button>
+      </div>
     </div>
+  </div>
 </div>
 
-<!-- ========== PRODUCT MODAL ========== -->
-<div class="modal-overlay" id="productModal">
-    <div class="product-modal">
-        <button class="modal-close" onclick="closeProductModal()">&#10005;</button>
-        <div class="product-modal-content">
-            <div class="product-modal-img" id="modalImg">
-                <span class="no-img">&#128247;</span>
-            </div>
-            <div class="product-modal-info">
-                <div class="product-modal-sku" id="modalSku">SKU-000</div>
-                <h2 class="product-modal-title" id="modalTitle">Producto</h2>
-                <p class="product-modal-desc" id="modalDesc">Descripcion del producto</p>
-                <div class="product-detail-grid">
-                    <div class="product-detail-item">
-                        <label>Marca</label>
-                        <span id="modalMarca">-</span>
-                    </div>
-                    <div class="product-detail-item">
-                        <label>Modelo</label>
-                        <span id="modalModelo">-</span>
-                    </div>
-                    <div class="product-detail-item">
-                        <label>Parte</label>
-                        <span id="modalParte">-</span>
-                    </div>
-                    <div class="product-detail-item">
-                        <label>Existencia</label>
-                        <span id="modalExistencia">-</span>
-                    </div>
-                </div>
-                <div class="product-modal-price" id="modalPrice">$0.00</div>
-                <div class="product-modal-stock" id="modalStock">En existencia</div>
-                <div class="product-modal-qty">
-                    <button class="qty-btn" onclick="changeQty(-1)">-</button>
-                    <span class="qty-display" id="modalQty">1</span>
-                    <button class="qty-btn" onclick="changeQty(1)">+</button>
-                </div>
-                <button class="add-to-cart-btn" id="addToCartBtn" onclick="addToCart()">&#128722; Agregar al carrito</button>
-            </div>
-        </div>
+<!-- ===== CART ===== -->
+<div class="cart-bg" id="cartBg" onclick="toggleCart()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-top">
+    <h3>Tu carrito</h3>
+    <button class="cart-close-btn" onclick="toggleCart()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
+  <div class="cart-body" id="cartItems">
+    <div class="cart-empty-msg">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+      <p>Tu carrito est&aacute; vac&iacute;o</p>
     </div>
+  </div>
+  <div class="cart-bottom">
+    <div class="cart-total-row">
+      <span>Total:</span>
+      <span id="cartTotal">$0.00</span>
+    </div>
+    <button class="btn btn-wa btn-block" onclick="checkoutWhatsApp()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Comprar por WhatsApp
+    </button>
+  </div>
 </div>
 
-<!-- ========== CART SIDEBAR ========== -->
-<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-<div class="cart-sidebar" id="cartSidebar">
-    <div class="cart-header">
-        <h3>&#128722; Tu carrito</h3>
-        <button class="cart-close" onclick="toggleCart()">&#10005;</button>
-    </div>
-    <div class="cart-items" id="cartItems">
-        <div class="cart-empty">
-            <div class="empty-icon">&#128722;</div>
-            <p>Tu carrito esta vacio</p>
-        </div>
-    </div>
-    <div class="cart-footer">
-        <div class="cart-total">
-            <span>Total:</span>
-            <span id="cartTotal">$0.00</span>
-        </div>
-        <button class="cart-checkout-btn" onclick="checkoutWhatsApp()">&#128172; Comprar por WhatsApp</button>
-    </div>
+<!-- ===== AUTH ===== -->
+<div class="auth-bg" id="authModal">
+  <div class="auth-box">
+    <button class="pm-x" onclick="closeAuthModal()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <h2>Acceso Admin</h2>
+    <p class="auth-sub">Inicia sesi&oacute;n para administrar el cat&aacute;logo</p>
+    <div class="auth-err" id="authError"></div>
+    <input class="auth-input" type="email" id="authEmail" placeholder="Correo electr&oacute;nico" onkeydown="if(event.key==='Enter')document.getElementById('authPassword').focus()">
+    <input class="auth-input" type="password" id="authPassword" placeholder="Contrase&ntilde;a" onkeydown="if(event.key==='Enter')signIn()">
+    <button class="btn btn-brand btn-block" onclick="signIn()" style="margin-top:8px">Iniciar sesi&oacute;n</button>
+  </div>
 </div>
 
-<!-- ========== AUTH MODAL ========== -->
-<div class="auth-modal-overlay" id="authModal">
-    <div class="auth-modal">
-        <button class="modal-close" onclick="closeAuthModal()">&#10005;</button>
-        <h2>&#128274; Acceso Admin</h2>
-        <p>Inicia sesion para administrar el catalogo</p>
-        <div class="auth-error" id="authError"></div>
-        <input type="email" class="auth-input" id="authEmail" placeholder="Correo electronico" onkeydown="if(event.key==='Enter'){document.getElementById('authPassword').focus()}">
-        <input type="password" class="auth-input" id="authPassword" placeholder="Contrasena" onkeydown="if(event.key==='Enter'){signIn()}">
-        <button class="auth-btn" onclick="signIn()">Iniciar sesion</button>
-    </div>
-</div>
+<!-- Toast -->
+<div class="toast-wrap" id="toastWrap"></div>
 
-<!-- Toast container -->
-<div class="toast-container" id="toastContainer"></div>
-
-<!-- WhatsApp float -->
-<a href="https://wa.me/5215576818593?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20autopartes" target="_blank" class="whatsapp-float nav-link-public">
-    &#128172;
+<!-- WA Float -->
+<a href="https://wa.me/5215576818593?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20autopartes" target="_blank" class="wa-float pub-link">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
-<!-- ========== SCRIPTS ========== -->
+<!-- Scripts -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="js/app.js"></script>
-
 </body>
 </html>
