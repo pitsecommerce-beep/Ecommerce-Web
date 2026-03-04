@@ -25,6 +25,35 @@ var currentModalProduct = null;
 var modalQty = 1;
 var isAdmin = false;
 
+// Default catalog filter values (based on collision auto parts industry)
+var DEFAULT_MARCAS = [
+    'Acura','Alfa Romeo','Audi','BMW','Buick','Cadillac','Chevrolet','Chirey',
+    'Chrysler','Dodge','Fiat','Ford','GMC','Honda','Hino','Hyundai','Infiniti',
+    'JAC','Jeep','Kia','Land Rover','Lincoln','Mazda','Mercedes-Benz','MG',
+    'Mini','Mitsubishi','Nissan','Peugeot','Pontiac','Ram','Renault','Seat',
+    'Subaru','Suzuki','Toyota','Volkswagen','Volvo'
+];
+
+var DEFAULT_PARTES = [
+    'Aleron','Antiniebla','Antimpacto','Base de Faro','Bisagra Cofre',
+    'Bisagra Puerta','Calavera','Cantonera','Cofre','Condensador',
+    'Cuarto Frontal','Cuarto Lateral','Cuarto Trasero',
+    'Defensa Delantera','Defensa Trasera','Deflector',
+    'Espejo','Extension de Salpicadera',
+    'Facia Delantera','Facia Trasera','Faro','Faro de Niebla',
+    'Guia de Facia','Jaladera','Liga de Defensa',
+    'Manija Exterior','Manija Interior','Marco de Puerta','Marco de Radiador',
+    'Medallon','Moldura de Facia','Moldura de Parrilla','Moldura de Puerta',
+    'Motoventilador',
+    'Panel Trasero','Parrilla','Piso','Poste','Puerta',
+    'Radiador','Rejilla de Facia',
+    'Salpicadera','Soporte de Defensa','Soporte de Facia','Soporte de Faro',
+    'Spoiler',
+    'Tapa de Cajuela','Tapa de Espejo','Tapa de Facia','Tapa de Gancho',
+    'Tolva de Motor','Tolva de Radiador','Tolva de Salpicadera',
+    'Vastago de Cofre','Vastago de Cajuela'
+];
+
 // SVG templates for reuse in JS-rendered HTML
 var SVG = {
     image: '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>',
@@ -38,6 +67,7 @@ var SVG = {
 // Init
 document.addEventListener('DOMContentLoaded', function () {
     updateCartCount();
+    populateFilters();
     loadProducts();
     setupScroll();
     setupDragDrop();
@@ -101,6 +131,10 @@ function loadProducts() {
 
 function populateFilters() {
     var m = {}, mo = {}, p = {};
+    // Seed with defaults
+    DEFAULT_MARCAS.forEach(function (v) { m[v] = 1; });
+    DEFAULT_PARTES.forEach(function (v) { p[v] = 1; });
+    // Merge with Firestore data
     products.forEach(function (pr) {
         if (pr.marca) m[pr.marca] = 1;
         if (pr.modelo) mo[pr.modelo] = 1;
